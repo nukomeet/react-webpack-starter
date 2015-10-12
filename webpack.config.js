@@ -1,12 +1,20 @@
+var webpack = require('webpack');
+
 module.exports = {
-  entry: './src/main.js',
+  entry: {
+    app: './main.js',
+    vendors: ['react', 'react-dom']
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: './dist',
   },
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel'}
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
+  ]
 };
